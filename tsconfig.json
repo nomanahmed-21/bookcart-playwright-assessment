@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "types": ["node"]
+  },
+  "include": ["utils/**/*.ts", "locators/**/*.ts", "pages/**/*.ts", "fixtures/**/*.ts", "tests/**/*.ts", "playwright.config.ts", "reporters/**/*.ts"]
+}

@@ -1,0 +1,961 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BookCart Test Results</title>
+<style>
+  :root { --bg:#f6f7f9; --card:#fff; --text:#1d2330; --muted:#5b6475; --pass:#1f7a3d; --pass-bg:#e7f5ec; --fail:#b42318; --fail-bg:#fdecea; --skip:#6b7280; --border:#e3e6eb; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font:16px/1.5 -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width:960px; margin:0 auto; padding:24px 16px 64px; }
+  h1 { margin:0 0 4px; } h2 { margin:40px 0 4px; } h3 { margin:24px 0 8px; color:var(--muted); font-size:15px; text-transform:uppercase; letter-spacing:.04em; }
+  .meta, .intro { color:var(--muted); margin:0 0 12px; }
+  .totals { display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); gap:12px; margin:20px 0; }
+  .total { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:14px 16px; }
+  .total b { display:block; font-size:32px; line-height:1.1; }
+  .total.pass b { color:var(--pass); } .total.fail b { color:var(--fail); } .total.skip b { color:var(--skip); }
+  .howto { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:12px 16px; }
+  .howto p { margin:4px 0; }
+  .card { background:var(--card); border:1px solid var(--border); border-left:5px solid var(--border); border-radius:10px; padding:14px 16px; margin:10px 0; }
+  .card.passed { border-left-color:var(--pass); } .card.failed { border-left-color:var(--fail); } .card.skipped { border-left-color:var(--skip); }
+  .card .top { display:flex; gap:10px; align-items:baseline; justify-content:space-between; flex-wrap:wrap; }
+  .card .name { font-weight:600; } .card .group { color:var(--muted); font-size:14px; }
+  .badge { font-size:13px; font-weight:600; padding:2px 10px; border-radius:999px; white-space:nowrap; }
+  .badge.passed { background:var(--pass-bg); color:var(--pass); } .badge.failed { background:var(--fail-bg); color:var(--fail); } .badge.skipped { background:#eef0f3; color:var(--skip); }
+  .label { font-size:13px; font-weight:600; color:var(--muted); margin-top:10px; }
+  .happened { background:var(--fail-bg); border-radius:8px; padding:8px 12px; margin-top:4px; overflow-wrap:anywhere; }
+  .happened div + div { margin-top:6px; }
+  .shot img { max-width:min(100%, 480px); border:1px solid var(--border); border-radius:6px; margin-top:6px; }
+  .filters { position:sticky; top:0; z-index:1; display:flex; gap:8px; flex-wrap:wrap; padding:12px 0; background:var(--bg); }
+  .filters button { font:inherit; font-weight:600; padding:6px 16px; border-radius:999px; border:1px solid var(--border); background:var(--card); color:var(--text); cursor:pointer; }
+  .filters button span { color:var(--muted); font-weight:400; margin-left:4px; }
+  .filters button[aria-pressed="true"] { background:var(--text); border-color:var(--text); color:#fff; }
+  .filters button[aria-pressed="true"] span { color:#d6dae2; }
+  section[hidden] { display:none; }
+  details { margin-top:10px; color:var(--muted); font-size:14px; } pre { white-space:pre-wrap; overflow-wrap:anywhere; background:#f1f3f6; padding:10px; border-radius:6px; }
+</style></head>
+<body><main>
+<h1>BookCart test results</h1>
+<p class="meta">Run finished 24/10/2026, 21:05:26 · overall result: <b>some checks failed</b></p>
+<div class="totals">
+  <div class="total"><b>93</b>checks run</div>
+  <div class="total pass"><b>69</b>passed</div>
+  <div class="total fail"><b>24</b>failed</div>
+  
+</div>
+<div class="howto">
+  <p><b>How to read this page.</b> Each check describes one thing the shop should do and what counts as a pass.</p>
+  <p><b>Failed</b> means the live website or server did not behave that way. "What happened" shows what it did instead, taken from this run.</p>
+  <p><b>Passed</b> means the shop behaved exactly as described under "What we checked".</p>
+</div>
+<nav class="filters" aria-label="Filter checks by result">
+  <button type="button" data-filter="all" aria-pressed="false">All <span>93</span></button><button type="button" data-filter="passed" aria-pressed="false">Passed <span>69</span></button><button type="button" data-filter="failed" aria-pressed="false">Failed <span>24</span></button>
+</nav>
+<section data-status="failed"><h2>What is failing (24)</h2><p class="intro">These checks found a problem in the live shop.</p><h3>Server (API)</h3><div class="card failed">
+  <div class="top"><div><div class="name">password is case-sensitive</div><div class="group">Login</div></div>
+  <span class="badge failed">Failed</span></div>
+  <div class="label">What we checked</div><div>Passwords must match exactly, including upper and lower case. Passes when the correct password typed with swapped letter case is refused (401).</div>
+  <div class="label">What happened</div><div class="happened"><div>/api/Login: server answered 200 (OK); expected 401 (Not logged in). Response: {&quot;token&quot;:&quot;&lt;redacted&gt;&quot;,&quot;userDetails&quot;:{&quot;userId&quot;:18475,&quot;username&quot;:&quot;nomanAhmed&quot;,&quot;userTypeName&quot;:&quot;User&quot;}}</div></div>
+  
+  <details><summary>Technical details</summary><pre>Error: /api/Login: server answered 200 (OK); expected 401 (Not logged in). Response: {&quot;token&quot;:&quot;&lt;redacted&gt;&quot;,&quot;userDetails&quot;:{&quot;userId&quot;:18475,&quot;username&quot;:&quot;nomanAhmed&quot;,&quot;userTypeName&quot;:&quot;User&quot;}}
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: 401
+Received: 200</pre></details>
+</div><div class="card failed">
+  <div class="top"><div><div class="name">malformed JSON is rejected with 400</div><div class="group">Login</div></div>
+  <span class="badge failed">Failed</span></div>
+  <div class="label">What we checked</div><div>Broken request data is handled gracefully. Passes when the server answers 400 (bad request) instead of crashing with 500.</div>
+  <div class="label">What happened</div><div class="happened"><div>/api/Login: server answered 500 (Server error); expected 400 (Bad request). Response: &lt;empty&gt;</div></div>
+  
+  <details><summary>Technical details</summary><pre>Error: /api/Login: server answered 500 (Server error); expected 400 (Bad request). Response: &lt;empty&gt;
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: 400
+Received: 500</pre></details>
+</div><div class="card failed">
+  <div class="top"><div><div class="name">newly registered users can log in</div><div class="group">Registration</div></div>
+  <span class="badge failed">Failed</span></div>
+  <div class="label">What we checked</div><div>A new customer can sign up and then log in. Passes when all 3 freshly registered test users can log in.</div>
+  <div class="label">What happened</div><div class="happened"><div>registered with 200 but cannot log in: sdet17928575471947410 (login 401), sdet179285754855939852 (login 401), sdet179285754896432417 (login 401)</div></div>
+  
+  <details><summary>Technical details</summary><pre>Error: registered with 200 but cannot log in: sdet17928575471947410 (login 401), sdet179285754855939852 (login 401), sdet179285754896432417 (login 401)
+
+expect(received).toEqual(expected) // deep equality
+
+- Expected  - 1
++ Received  + 5
+
+- Array []
++ Array [
++   &quot;sdet17928575471947410 (login 401)&quot;,
++   &quot;sdet179285754855939852 (login 401)&quot;,
++   &quot;sdet179285754896432417 (login 401)&quot;,
++ ]</pre></details>
+</div><div class="card failed">
+  <div class="top"><div><div class="name">a user cannot read another user's orders</div><div class="group">Access control</div></div>
+  <span class="badge failed">Failed</span></div>
+  <div class="label">What we checked</div><div>A customer must not see another customer's orders. Passes when the server refuses to show user 1's orders to our account (403 Not allowed, or 404 Not found).</div>
+  <div class="label">What happened</div><div class="happened"><div>logged in as user 18475, the server answered 200 and returned user 1's orders; expected 403 (Not allowed) or 404 (Not found)</div></div>
+  
+  <details><summary>Technical details</summary><pre>Error: logged in as user 18475, the server answered 200 and returned user 1's orders; expected 403 (Not allowed) or 404 (Not found)
+
+expect(received).toContain(expected) // indexOf
+
+Expected value: 200
+Received array: [403, 404]</pre></details>
+</div><div class="card failed">
+  <div class="top"><div><div class="name">a user cannot move carts into an account that isn't theirs</div><div class="group">Access control</div></div>
+  <span class="badge failed">Failed</span></div>
+  <div class="label">What we checked</div><div>A customer must not be able to move carts into someone else's account. Passes when the server refuses (403 Not allowed, or 404 Not found).</div>
+  <div class="label">What happened</div><div class="happened"><div>/api/ShoppingCart/SetShoppingCart/952032218/919431861: server answered 200 (OK); expected 403 (Not allowed) or 404 (Not found). Response: 1</div></div>
+  
+  <details><summary>Technical details</summary><pre>Error: /api/ShoppingCart/SetShoppingCart/952032218/919431861: server answered 200 (OK); expected 403 (Not allowed) or 404 (Not found). Response: 1
+
+expect(received).toContain(expected) // indexOf
+
+Expected value: 200
+Received array: [403, 404]</pre></details>
+</div><div class="card failed">
+  <div class="top"><div><div class="name">book id 999999 is not added to the cart</div><div class="group">Shopping cart</div></div>
+  <span class="badge failed">Failed</span></div>
+  <div class="label">What we checked</div><div>A book that does not exist (id 999999) cannot be added to a cart. Passes when the cart stays empty.</div>
+  <div class="label">What happened</div><div class="happened"><div>the server answered 200 and the cart now holds 1 item(s), 1 of them with no book details; expected the cart to stay empty</div></div>
+  
+  <details><summary>Technical details</summary><pre>Error: the server answered 200 and the cart now holds 1 item(s), 1 of them with no book details; expected the cart to stay empty
+
+expect(received).toEqual(expected) // deep equality
+
+- Expected  - 1
++ Received  + 6
+
+- Array []
++ Array [
++   Object {
++     &quot;book&quot;: null,
++     &quot;quantity&quot;: 1,
++   },
++ ]</pre></details>
+</div><div class="card failed">
+  <div class="top"><div><div class="name">book id 0 is not added to the cart</div><div class="group">Shopping cart</div></div>
+  <span class="badge failed">Failed</span></div>
+  <div class="label">What we checked</div><div>A book that does not exist (id 0) cannot be added to a cart. Passes when the cart stays empty.</div>
+  <div class="label">What happened</div><div class="happened"><div>the server answered 200 and the cart now holds 1 item(s), 1 of them with no book details; expected the cart to stay empty</div></div>
+  
+  <details><summary>Technical details</summary><pre>Error: the server answered 200 and the cart now holds 1 item(s), 1 of them with no book details; expected the cart to stay empty
+
+expect(received).toEqual(expected) // deep equality
+
+- Expected  - 1
++ Received  + 6
+
+- Array []
++ Array [
++   Object {
++     &quot;book&quot;: null,
++     &quot;quantity&quot;: 1,
++   },
++ ]</pre></details>
+</div><div class="card failed">
+  <div class="top"><div><div class="name">a non-numeric user id is rejected</div><div class="group">Shopping cart</div></div>
+  <span class="badge failed">Failed</span></div>
+  <div class="label">What we checked</div><div>An invalid customer id is refused. Passes when the server answers 400 (bad request) or 404 (not found) for the id &quot;abc&quot; instead of returning a cart.</div>
+  <div class="label">What happened</div><div class="happened"><div>/api/ShoppingCart/abc: server answered 200 (OK); expected 400 (Bad request) or 404 (Not found). Response: [{&quot;book&quot;:null,&quot;quantity&quot;:1},{&quot;book&quot;:null,&quot;quantity&quot;:5},{&quot;book&quot;:null,&quot;quantity&quot;:0},{&quot;book&quot;:null,&quot;quantity&quot;:0},{&quot;book&quot;:null,&quot;quantity&quot;:4},{&quot;book&quot;:null,&quot;quantity&quot;:1},{&quot;book&quot;:{&quot;bookId&quot;:32,&quot;title&quot;:&quot;Wicked and the Wallflower&quot;,&quot;author&quot;:&quot;Sarah MacLean&quot;,&quot;category&quot;:&quot;Fiction&quot;,&quot;price&quot;:512.00,&quot;coverFileName&quot;:&quot;75</div></div>
+  
+  <details><summary>Technical details</summary><pre>Error: /api/ShoppingCart/abc: server answered 200 (OK); expected 400 (Bad request) or 404 (Not found). Response: [{&quot;book&quot;:null,&quot;quantity&quot;:1},{&quot;book&quot;:null,&quot;quantity&quot;:5},{&quot;book&quot;:null,&quot;quantity&quot;:0},{&quot;book&quot;:null,&quot;quantity&quot;:0},{&quot;book&quot;:null,&quot;quantity&quot;:4},{&quot;book&quot;:null,&quot;quantity&quot;:1},{&quot;book&quot;:{&quot;bookId&quot;:32,&quot;title&quot;:&quot;Wicked and the Wallflower&quot;,&quot;author&quot;:&quot;Sarah MacLean&quot;,&quot;category&quot;:&quot;Fiction&quot;,&quot;price&quot;:512.00,&quot;coverFileName&quot;:&quot;75
+
+expect(received).toContain(expected) // indexOf
+
+Expected value: 200
+Received array: [400, 404]</pre></details>
+</div><div class="card failed">
+  <div class="top"><div><div class="name">catalog list returns books</div><div class="group">Catalog</div></div>
+  <span class="badge failed">Failed</span></div>
+  <div class="label">What we checked</div><div>The shop can list all its books. Passes when the book list request succeeds (200) and contains books.</div>
+  <div class="label">What happened</div><div class="happened"><div>/api/Book: server answered 500 (Server error); expected 200 (OK). Response: &lt;empty&gt;</div></div>
+  
+  <details><summary>Technical details</summary><pre>Error: /api/Book: server answered 500 (Server error); expected 200 (OK). Response: &lt;empty&gt;
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: 200
+Received: 500</pre></details>
+</div><div class="card failed">
+  <div class="top"><div><div class="name">similar books for an unknown book are answered without an error</div><div class="group">Catalog</div></div>
+  <span class="badge failed">Failed</span></div>
+  <div class="label">What we checked</div><div>Suggestions for a book that does not exist are answered properly. Passes when the server answers 404 (not found), or 200 with no suggestions, instead of crashing with 500.</div>
+  <div class="label">What happened</div><div class="happened"><div>/api/Book/GetSimilarBooks/999999: server answered 500 (Server error); expected 200 (OK) or 404 (Not found). Response: &lt;empty&gt;</div></div>
+  
+  <details><summary>Technical details</summary><pre>Error: /api/Book/GetSimilarBooks/999999: server answered 500 (Server error); expected 200 (OK) or 404 (Not found). Response: &lt;empty&gt;
+
+expect(received).toContain(expected) // indexOf
+
+Expected value: 500
+Received array: [200, 404]</pre></details>
+</div><div class="card failed">
+  <div class="top"><div><div class="name">checkout with negative quantity is rejected and creates no order</div><div class="group">Orders</div></div>
+  <span class="badge failed">Failed</span></div>
+  <div class="label">What we checked</div><div>An order with negative quantity is refused. Passes when the server refuses it (400 or 422) and no order is created.</div>
+  <div class="label">What happened</div><div class="happened"><div>the server accepted it and created order 315-489734 (total -1090, 1 item line(s)); expected no order</div><div>/api/CheckOut/18475: server answered 200 (OK); expected 400 (Bad request) or 422 (HTTP status). Response: &lt;empty&gt;</div></div>
+  
+  <details><summary>Technical details</summary><pre>Error: the server accepted it and created order 315-489734 (total -1090, 1 item line(s)); expected no order
+
+expect(received).toEqual(expected) // deep equality
+
+- Expected  -  1
++ Received  + 20
+
+- Array []
++ Array [
++   Object {
++     &quot;cartTotal&quot;: -1090,
++     &quot;orderDate&quot;: &quot;2026-10-24T00:00:00&quot;,
++     &quot;orderDetails&quot;: Array [
++       Object {
++         &quot;book&quot;: Object {
++           &quot;author&quot;: null,
++           &quot;bookId&quot;: 30,
++           &quot;category&quot;: null,
++           &quot;coverFileName&quot;: null,
++           &quot;price&quot;: 545,
++           &quot;title&quot;: &quot;A Princess in Theory: Reluctant Royals&quot;,
++         },
++         &quot;quantity&quot;: -2,
++       },
++     ],
++     &quot;orderId&quot;: &quot;315-489734&quot;,
++   },
++ ]
+
+Error: /api/CheckOut/18475: server answered 200 (OK); expected 400 (Bad request) or 422 (HTTP status). Response: &lt;empty&gt;
+
+expect(received).toContain(expected) // indexOf
+
+Expected value: 200
+Received array: [400, 422]</pre></details>
+</div><div class="card failed">
+  <div class="top"><div><div class="name">checkout with no items is rejected and creates no order</div><div class="group">Orders</div></div>
+  <span class="badge failed">Failed</span></div>
+  <div class="label">What we checked</div><div>An order with no items is refused. Passes when the server refuses it (400 or 422) and no order is created.</div>
+  <div class="label">What happened</div><div class="happened"><div>the server accepted it and created order 239-163683 (total 0, 0 item line(s)); expected no order</div><div>/api/CheckOut/18475: server answered 200 (OK); expected 400 (Bad request) or 422 (HTTP status). Response: &lt;empty&gt;</div></div>
+  
+  <details><summary>Technical details</summary><pre>Error: the server accepted it and created order 239-163683 (total 0, 0 item line(s)); expected no order
+
+expect(received).toEqual(expected) // deep equality
+
+- Expected  - 1
++ Received  + 8
+
+- Array []
++ Array [
++   Object {
++     &quot;cartTotal&quot;: 0,
++     &quot;orderDate&quot;: &quot;2026-10-24T00:00:00&quot;,
++     &quot;orderDetails&quot;: Array [],
++     &quot;orderId&quot;: &quot;239-163683&quot;,
++   },
++ ]
+
+Error: /api/CheckOut/18475: server answered 200 (OK); expected 400 (Bad request) or 422 (HTTP status). Response: &lt;empty&gt;
+
+expect(received).toContain(expected) // indexOf
+
+Expected value: 200
+Received array: [400, 422]</pre></details>
+</div><div class="card failed">
+  <div class="top"><div><div class="name">checkout does not trust a client-side price or total</div><div class="group">Orders</div></div>
+  <span class="badge failed">Failed</span></div>
+  <div class="label">What we checked</div><div>Customers cannot set their own prices. Passes when an order sent with a price of 1 rupee is either refused or charged at the real price.</div>
+  <div class="label">What happened</div><div class="happened"><div>order 109-350514 was charged 1; expected the real price 545</div></div>
+  
+  <details><summary>Technical details</summary><pre>Error: order 109-350514 was charged 1; expected the real price 545
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: 545
+Received: 1</pre></details>
+</div><div class="card failed">
+  <div class="top"><div><div class="name">a book that does not exist is not added to the wishlist</div><div class="group">Wishlist</div></div>
+  <span class="badge failed">Failed</span></div>
+  <div class="label">What we checked</div><div>Only real books can be saved. Passes when trying to save a book that does not exist (id 999999) leaves the wishlist empty.</div>
+  <div class="label">What happened</div><div class="happened"><div>the server answered 200 and the wishlist now holds 1 item(s) (1 empty); expected it to stay empty</div></div>
+  
+  <details><summary>Technical details</summary><pre>Error: the server answered 200 and the wishlist now holds 1 item(s) (1 empty); expected it to stay empty
+
+expect(received).toEqual(expected) // deep equality
+
+- Expected  - 1
++ Received  + 3
+
+- Array []
++ Array [
++   null,
++ ]</pre></details>
+</div><h3>Website</h3><div class="card failed">
+  <div class="top"><div><div class="name">wrong password keeps the user logged out and shows an error</div><div class="group">Login</div></div>
+  <span class="badge failed">Failed</span></div>
+  <div class="label">What we checked</div><div>On the website, a wrong password keeps you logged out and tells you why. Passes when you stay on the login page and an error message is shown.</div>
+  <div class="label">What happened</div><div class="happened"><div>no error message is shown after a failed login; expected one to be visible</div></div>
+  <div class="shot"><div class="label">Screenshot at the moment it failed</div><a href="screenshots/57.png"><img src="screenshots/57.png" alt="Screenshot of the failure" loading="lazy"></a></div>
+  <details><summary>Technical details</summary><pre>Error: no error message is shown after a failed login; expected one to be visible
+
+expect(locator).toBeVisible() failed
+
+Locator: locator('mat-error, mat-snack-bar-container, [role=alert]').first()
+Expected: visible
+Timeout: 10000ms
+Error: element(s) not found
+
+Call log:
+  - no error message is shown after a failed login; expected one to be visible locator('mat-error, mat-snack-bar-container, [role=alert]').first() with timeout 10000ms
+  - waiting for locator('mat-error, mat-snack-bar-container, [role=alert]').first()
+</pre></details>
+</div><div class="card failed">
+  <div class="top"><div><div class="name">empty login shows required errors and sends no request</div><div class="group">Login</div></div>
+  <span class="badge failed">Failed</span></div>
+  <div class="label">What we checked</div><div>Submitting an empty login form shows what is missing. Passes when &quot;Username is required&quot; and &quot;Password is required&quot; appear and nothing is sent to the server.</div>
+  <div class="label">What happened</div><div class="happened"><div>the &quot;required&quot; error messages are not shown; expected both to appear</div></div>
+  <div class="shot"><div class="label">Screenshot at the moment it failed</div><a href="screenshots/59.png"><img src="screenshots/59.png" alt="Screenshot of the failure" loading="lazy"></a></div>
+  <details><summary>Technical details</summary><pre>Error: the &quot;required&quot; error messages are not shown; expected both to appear
+
+expect(locator).toHaveText(expected) failed
+
+Locator: locator('mat-error')
+Timeout: 10000ms
+- Expected  - 4
++ Received  + 1
+
+- Array [
+-   &quot;Username is required&quot;,
+-   &quot;Password is required&quot;,
+- ]
++ Array []
+
+Call log:
+  - the &quot;required&quot; error messages are not shown; expected both to appear locator('mat-error') with timeout 10000ms
+  - waiting for locator('mat-error')
+    24 × locator resolved to 0 elements
+</pre></details>
+</div><div class="card failed">
+  <div class="top"><div><div class="name">home page lists books</div><div class="group">Catalog (live)</div></div>
+  <span class="badge failed">Failed</span></div>
+  <div class="label">What we checked</div><div>The website's home page shows books. Passes when the book list loads (200) and at least one book appears.</div>
+  <div class="label">What happened</div><div class="happened"><div>the book list did not load: the server answered 500; expected 200 (OK)</div></div>
+  <div class="shot"><div class="label">Screenshot at the moment it failed</div><a href="screenshots/65.png"><img src="screenshots/65.png" alt="Screenshot of the failure" loading="lazy"></a></div>
+  <details><summary>Technical details</summary><pre>Error: the book list did not load: the server answered 500; expected 200 (OK)
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: 200
+Received: 500</pre></details>
+</div><div class="card failed">
+  <div class="top"><div><div class="name">a user registered on the website can log in</div><div class="group">Registration</div></div>
+  <span class="badge failed">Failed</span></div>
+  <div class="label">What we checked</div><div>Someone who just signed up on the website can log in with the same details. Passes when the login succeeds and their user name appears in the top bar.</div>
+  <div class="label">What happened</div><div class="happened"><div>registration said &quot;successful&quot;, but logging in as sdetui1792857586222401 was answered with 401; expected 200 (OK)</div></div>
+  <div class="shot"><div class="label">Screenshot at the moment it failed</div><a href="screenshots/66.png"><img src="screenshots/66.png" alt="Screenshot of the failure" loading="lazy"></a></div>
+  <details><summary>Technical details</summary><pre>Error: registration said &quot;successful&quot;, but logging in as sdetui1792857586222401 was answered with 401; expected 200 (OK)
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: 200
+Received: 401</pre></details>
+</div><div class="card failed">
+  <div class="top"><div><div class="name">a first name of only spaces is rejected on the form</div><div class="group">Registration</div></div>
+  <span class="badge failed">Failed</span></div>
+  <div class="label">What we checked</div><div>A first name made only of spaces is caught before sign-up. Passes when the form shows an error and nothing is sent to the server.</div>
+  <div class="label">What happened</div><div class="happened"><div>the form sent a first name made only of spaces to the server (which then rejects it without telling the user) · Expected: false · Received: true</div></div>
+  <div class="shot"><div class="label">Screenshot at the moment it failed</div><a href="screenshots/67.png"><img src="screenshots/67.png" alt="Screenshot of the failure" loading="lazy"></a></div>
+  <details><summary>Technical details</summary><pre>Error: the form sent a first name made only of spaces to the server (which then rejects it without telling the user)
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: false
+Received: true</pre></details>
+</div><div class="card failed">
+  <div class="top"><div><div class="name">missing gender tells the user what is missing</div><div class="group">Registration</div></div>
+  <span class="badge failed">Failed</span></div>
+  <div class="label">What we checked</div><div>Forgetting to choose a gender is explained to the visitor. Passes when a message appears after clicking Register with no gender selected.</div>
+  <div class="label">What happened</div><div class="happened"><div>no message is shown for the missing gender; expected one to be visible</div></div>
+  <div class="shot"><div class="label">Screenshot at the moment it failed</div><a href="screenshots/68.png"><img src="screenshots/68.png" alt="Screenshot of the failure" loading="lazy"></a></div>
+  <details><summary>Technical details</summary><pre>Error: no message is shown for the missing gender; expected one to be visible
+
+expect(locator).toBeVisible() failed
+
+Locator: locator('mat-error').first()
+Expected: visible
+Timeout: 10000ms
+Error: element(s) not found
+
+Call log:
+  - no message is shown for the missing gender; expected one to be visible locator('mat-error').first() with timeout 10000ms
+  - waiting for locator('mat-error').first()
+</pre></details>
+</div><div class="card failed">
+  <div class="top"><div><div class="name">empty form tells the user what is missing</div><div class="group">Checkout validation</div></div>
+  <span class="badge failed">Failed</span></div>
+  <div class="label">What we checked</div><div>An empty delivery form tells the customer what is missing. Passes when field error messages appear after clicking Place Order.</div>
+  <div class="label">What happened</div><div class="happened"><div>no field errors shown after submitting an empty form; expected them to be visible</div></div>
+  <div class="shot"><div class="label">Screenshot at the moment it failed</div><a href="screenshots/83.png"><img src="screenshots/83.png" alt="Screenshot of the failure" loading="lazy"></a></div>
+  <details><summary>Technical details</summary><pre>Error: no field errors shown after submitting an empty form; expected them to be visible
+
+expect(locator).toBeVisible() failed
+
+Locator: locator('mat-error').first()
+Expected: visible
+Timeout: 10000ms
+Error: element(s) not found
+
+Call log:
+  - no field errors shown after submitting an empty form; expected them to be visible locator('mat-error').first() with timeout 10000ms
+  - waiting for locator('mat-error').first()
+</pre></details>
+</div><div class="card failed">
+  <div class="top"><div><div class="name">whitespace-only name is not accepted</div><div class="group">Checkout validation</div></div>
+  <span class="badge failed">Failed</span></div>
+  <div class="label">What we checked</div><div>A name made only of spaces is not accepted. Passes when no order is sent.</div>
+  <div class="label">What happened</div><div class="happened"><div>order request sent with a blank name (aborted by the test) · Expected: false · Received: true</div></div>
+  <div class="shot"><div class="label">Screenshot at the moment it failed</div><a href="screenshots/87.png"><img src="screenshots/87.png" alt="Screenshot of the failure" loading="lazy"></a></div>
+  <details><summary>Technical details</summary><pre>Error: order request sent with a blank name (aborted by the test)
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: false
+Received: true</pre></details>
+</div><div class="card failed">
+  <div class="top"><div><div class="name">searching by order id shows only that order</div><div class="group">My Orders</div></div>
+  <span class="badge failed">Failed</span></div>
+  <div class="label">What we checked</div><div>Customers can find an order by its number. Passes when typing an order id in the search box leaves only that order on the page.</div>
+  <div class="label">What happened</div><div class="happened"><div>expect(locator).toBeVisible() failed · Expected: visible</div></div>
+  <div class="shot"><div class="label">Screenshot at the moment it failed</div><a href="screenshots/88.png"><img src="screenshots/88.png" alt="Screenshot of the failure" loading="lazy"></a></div>
+  <details><summary>Technical details</summary><pre>Error: expect(locator).toBeVisible() failed
+
+Locator: locator('app-my-orders mat-paginator')
+Expected: visible
+Timeout: 10000ms
+Error: element(s) not found
+
+Call log:
+  - Expect &quot;toBeVisible&quot; locator('app-my-orders mat-paginator') with timeout 10000ms
+  - waiting for locator('app-my-orders mat-paginator')
+</pre></details>
+</div><div class="card failed">
+  <div class="top"><div><div class="name">orders are shown 5 per page</div><div class="group">My Orders</div></div>
+  <span class="badge failed">Failed</span></div>
+  <div class="label">What we checked</div><div>A long order history is split into pages. Passes when no more than 5 orders are shown at once, as the &quot;Items per page: 5&quot; control says.</div>
+  <div class="label">What happened</div><div class="happened"><div>expect(locator).toBeVisible() failed · Expected: visible</div></div>
+  <div class="shot"><div class="label">Screenshot at the moment it failed</div><a href="screenshots/89.png"><img src="screenshots/89.png" alt="Screenshot of the failure" loading="lazy"></a></div>
+  <details><summary>Technical details</summary><pre>Error: expect(locator).toBeVisible() failed
+
+Locator: locator('app-my-orders mat-paginator')
+Expected: visible
+Timeout: 10000ms
+Error: element(s) not found
+
+Call log:
+  - Expect &quot;toBeVisible&quot; locator('app-my-orders mat-paginator') with timeout 10000ms
+  - waiting for locator('app-my-orders mat-paginator')
+</pre></details>
+</div></section>
+<section data-status="passed"><h2>What is passing (69)</h2><p class="intro">These checks confirmed the shop works as described.</p><h3>Server (API)</h3><div class="card passed">
+  <div class="top"><div><div class="name">valid login returns a JWT and the user details</div><div class="group">Login</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>Logging in with the correct username and password works. Passes when the server returns a login token and the right user details.</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">unknown user is rejected with 401</div><div class="group">Login</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>Logging in as a user that does not exist is refused. Passes when the server answers 401.</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">wrong password is rejected with 401</div><div class="group">Login</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>A wrong password is refused. Passes when the server answers 401 (not logged in).</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">invalid credentials are rejected without a token: missing password</div><div class="group">Login</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>Incomplete or malicious login data (missing password) is refused. Passes when the server answers 400 or 401 and gives no login token.</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">invalid credentials are rejected without a token: empty body</div><div class="group">Login</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>Incomplete or malicious login data (empty body) is refused. Passes when the server answers 400 or 401 and gives no login token.</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">invalid credentials are rejected without a token: empty username</div><div class="group">Login</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>Incomplete or malicious login data (empty username) is refused. Passes when the server answers 400 or 401 and gives no login token.</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">invalid credentials are rejected without a token: SQL injection</div><div class="group">Login</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>Incomplete or malicious login data (SQL injection) is refused. Passes when the server answers 400 or 401 and gives no login token.</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">registration is rejected with 400: password shorter than 8</div><div class="group">Registration</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>Sign-up with an invalid form (password shorter than 8) is refused. Passes when the server answers 400 (bad request).</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">registration is rejected with 400: password without a digit</div><div class="group">Registration</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>Sign-up with an invalid form (password without a digit) is refused. Passes when the server answers 400 (bad request).</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">registration is rejected with 400: password without an upper-case letter</div><div class="group">Registration</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>Sign-up with an invalid form (password without an upper-case letter) is refused. Passes when the server answers 400 (bad request).</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">registration is rejected with 400: gender not Male/Female</div><div class="group">Registration</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>Sign-up with an invalid form (gender not Male/Female) is refused. Passes when the server answers 400 (bad request).</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">registration is rejected with 400: first name missing</div><div class="group">Registration</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>Sign-up with an invalid form (first name missing) is refused. Passes when the server answers 400 (bad request).</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">registration is rejected with 400: passwords do not match</div><div class="group">Registration</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>Sign-up with an invalid form (passwords do not match) is refused. Passes when the server answers 400 (bad request).</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">username availability check</div><div class="group">Registration</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>Sign-up can tell whether a username is taken. Passes when an existing name is reported as taken and a new one as free.</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">tampered or unsigned JWTs are rejected with 401</div><div class="group">Access control</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>Forged login tokens are not accepted. Passes when a token whose content was altered, or that has no signature, is refused (401).</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">checkout and orders reject missing or invalid tokens with 401</div><div class="group">Access control</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>Placing or viewing orders requires being logged in. Passes when requests without a valid login token are refused (401).</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">moving a cart needs a token</div><div class="group">Access control</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>Moving a cart between accounts requires being logged in. Passes when the request without a login token is refused (401).</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">book management needs an admin</div><div class="group">Access control</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>Only administrators may add, change or delete books. Passes when these requests are refused without login (401) and for a normal customer (403).</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">a new cart is empty</div><div class="group">Shopping cart</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>A brand-new cart starts empty. Passes when the cart contains nothing.</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">removing one item keeps the others</div><div class="group">Shopping cart</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>Removing one book keeps the others. Passes when only the removed book disappears.</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">clearing empties the cart, and clearing an empty cart is harmless</div><div class="group">Shopping cart</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>Emptying the cart works, even twice in a row. Passes when the cart is empty afterwards and emptying an empty cart causes no error.</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">add two books, change quantity and total matches line items</div><div class="group">Shopping cart</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>Adding books and changing quantities updates the cart correctly. Passes when each quantity follows every change and the cart total equals price x quantity at the shop's prices.</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">decrementing or removing a book that is not in the cart changes nothing</div><div class="group">Shopping cart</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>Changing a book that is not in the cart does nothing harmful. Passes when the cart is unchanged.</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">quantity 10 of one book totals 10 x price</div><div class="group">Shopping cart</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>Large quantities are totalled correctly. Passes when 10 copies of a book cost exactly 10 x its price.</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">quantity cannot go below zero</div><div class="group">Shopping cart</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>Quantities can never go negative. Passes when reducing a quantity below 0 leaves it at 0 and the total at 0.</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">book details match the Book schema</div><div class="group">Catalog</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>A single book's details are complete. Passes when the book has an id, title, author, category, price and cover, and a price above 0.</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">book id 999999 returns 404</div><div class="group">Catalog</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>Asking for a book that does not exist (id 999999) is answered properly. Passes when the server answers 404 (not found).</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">book id 0 returns 404</div><div class="group">Catalog</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>Asking for a book that does not exist (id 0) is answered properly. Passes when the server answers 404 (not found).</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">book id -1 returns 404</div><div class="group">Catalog</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>Asking for a book that does not exist (id -1) is answered properly. Passes when the server answers 404 (not found).</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">book id abc returns 404</div><div class="group">Catalog</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>Asking for a book that does not exist (id abc) is answered properly. Passes when the server answers 404 (not found).</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">cart count equals the total quantity</div><div class="group">Shopping cart</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>The cart count (shown on the cart icon) is right. Passes when the server's count equals the total number of copies in the cart: 0 when empty, 3 for 2 + 1 copies.</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">categories list returns id/name pairs</div><div class="group">Catalog</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>The list of book categories is available. Passes when every category has an id and a name.</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">similar books are other books of the same category</div><div class="group">Catalog</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>&quot;Similar books&quot; suggestions make sense. Passes when the suggestions are other books from the same category.</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">checkout creates an order whose total matches its line items</div><div class="group">Orders</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>Checking out creates an order with the right contents and total. Passes when the new order lists 2 x the first book and 1 x the second, and its total equals price x quantity.</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">changing a wishlist needs a login token</div><div class="group">Wishlist</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>Only a logged-in customer can change their wishlist. Passes when adding a book or clearing the list without a login token is refused (401).</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">a book can be added, removed and the wishlist cleared</div><div class="group">Wishlist</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>Saving books for later works. Passes when the first toggle adds a book, a second toggle removes it, and clearing empties the list.</div>
+  
+  
+  
+</div><h3>Website with simulated server responses</h3><div class="card passed">
+  <div class="top"><div><div class="name">empty catalog shows the empty state</div><div class="group">Catalog (route.fulfill)</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>With an empty book list simulated, the website says so. Passes when &quot;No books found.&quot; is shown and no book cards appear.</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">category filter shows only books of that category</div><div class="group">Catalog (route.fulfill)</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>Choosing a category on the home page narrows the list. Passes when only books of the chosen category remain, and &quot;All Categories&quot; brings every book back.</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">changed title and price show on home, search and details</div><div class="group">Catalog (route.fulfill)</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>With the book list simulated, the website shows what the shop sends. Passes when a changed title and price appear on the home page, in search and on the book page, and Add to Cart still uses the real shop.</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">price filter hides books above the chosen price</div><div class="group">Catalog (route.fulfill)</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>The price slider narrows the list by price. Passes when, with the slider at its lowest value, only the cheapest book remains.</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">aborted quantity change leaves quantity and totals unchanged</div><div class="group">Cart update failure (route.abort)</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>If the connection drops while changing a quantity, the cart stays correct. Passes when the quantity and total remain unchanged on the website and on the server.</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">book page shows the similar books the server suggests</div><div class="group">Catalog (route.fulfill)</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>A book page suggests similar books. Passes when the &quot;Similar Books&quot; section shows exactly the books the server suggested, with their prices.</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">cart shows a spinner while loading and recovers with the real data</div><div class="group">Delayed cart response (route.fetch)</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>While the cart loads slowly, the website shows a loading indicator and then the cart. Passes when a spinner appears first and the correct cart appears once the data arrives.</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">failed checkout shows no confirmation and keeps the cart</div><div class="group">Checkout failure (route.fulfill 500)</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>If checkout fails on the server, the customer is not told the order was placed. Passes when no success message appears, the customer stays on checkout, the cart is kept and no order is created.</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">the heart on a book card adds and removes the book from the wishlist</div><div class="group">Wishlist from a book card (route.fulfill)</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>A logged-in customer can save a book straight from the book list. Passes when clicking the heart adds the book to the wishlist (and the wishlist count shows 1), and clicking it again removes it.</div>
+  
+  
+  
+</div><h3>Website</h3><div class="card passed">
+  <div class="top"><div><div class="name">guest checkout asks the user to log in</div><div class="group">Cart actions (guest)</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>Visitors who are not logged in must log in before checkout. Passes when clicking CheckOut opens the login page.</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">remove one item, then clear the cart</div><div class="group">Cart actions (guest)</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>On the website, books can be removed from the cart and the cart can be emptied. Passes when the removed book disappears, the total updates, and &quot;Clear cart&quot; empties the cart.</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">logout ends the session</div><div class="group">Login</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>Logging out really logs you out. Passes when Logout opens the login page, the top bar shows &quot;Login&quot; again and My Orders asks for a login.</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">logged-out user opening /checkout is sent to login</div><div class="group">Login</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>Pages that need a login send visitors to the login page. Passes when opening /checkout while logged out shows the login page.</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">logged-out user opening /myorders is sent to login</div><div class="group">Login</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>Pages that need a login send visitors to the login page. Passes when opening /myorders while logged out shows the login page.</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">the login page links to registration and back</div><div class="group">Registration</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>Visitors can move between login and sign-up. Passes when &quot;Register&quot; on the login page opens the sign-up form and &quot;Login&quot; on the sign-up form goes back.</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">empty fields show &quot;required&quot; messages</div><div class="group">Registration</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>Leaving the sign-up fields empty tells the visitor what is missing. Passes when every field shows its &quot;is required&quot; message.</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">password shorter than 8 is rejected</div><div class="group">Registration</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>A weak password (shorter than 8) is caught on the form. Passes when the password rule message appears and nothing is sent to the server.</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">password without a digit is rejected</div><div class="group">Registration</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>A weak password (without a digit) is caught on the form. Passes when the password rule message appears and nothing is sent to the server.</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">password without an upper-case letter is rejected</div><div class="group">Registration</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>A weak password (without an upper-case letter) is caught on the form. Passes when the password rule message appears and nothing is sent to the server.</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">passwords that do not match are rejected</div><div class="group">Registration</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>The two password fields must match. Passes when &quot;Password do not match&quot; appears and nothing is sent to the server.</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">valid registration succeeds and goes to login</div><div class="group">Registration</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>A visitor can sign up with valid details. Passes when the server accepts the sign-up, the login page opens and &quot;Registration successful&quot; is shown.</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">a user name that is taken is rejected</div><div class="group">Registration</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>A user name that already exists cannot be used again. Passes when &quot;User Name is not available&quot; appears for an existing name and nothing is sent to the server.</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">Cancel returns to the cart and keeps it</div><div class="group">Checkout validation</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>A customer can back out of checkout. Passes when &quot;Cancel&quot; goes back to the cart page, the book is still in the cart and no order is sent.</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">empty form sends no order</div><div class="group">Checkout validation</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>An empty delivery form does not place an order. Passes when no order request is sent after clicking Place Order.</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">invalid pincode (5 digits) shows an error and sends no order</div><div class="group">Checkout validation</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>An invalid PIN code (5 digits) is caught. Passes when the PIN code error message appears and no order is sent.</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">invalid pincode (letters) shows an error and sends no order</div><div class="group">Checkout validation</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>An invalid PIN code (letters) is caught. Passes when the PIN code error message appears and no order is sent.</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">invalid pincode (leading zero) shows an error and sends no order</div><div class="group">Checkout validation</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>An invalid PIN code (leading zero) is caught. Passes when the PIN code error message appears and no order is sent.</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">login, change quantities, reload and place an order</div><div class="group">Shopping journey</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>A customer can complete a purchase on the website: log in, see two books in the cart, change quantities, reload the page and check out. Passes when quantities and totals are right at every step, survive a reload, and the order appears on My Orders and in the shop's records.</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">wishlist lists saved books; remove one, then clear it</div><div class="group">Wishlist</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>A customer's saved books appear on the wishlist page and can be removed. Passes when both saved books are listed with their prices, &quot;Remove from Wishlist&quot; removes one, and &quot;Clear Wishlist&quot; empties it, on the page and on the server.</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">a saved book can be added to the cart from the wishlist</div><div class="group">Wishlist</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>Customers can move a saved book into their cart. Passes when &quot;Add to Cart&quot; on the wishlist puts that book in the cart (quantity 1) and the cart count shows 1.</div>
+  
+  
+  
+</div><h3>Website and server together</h3><div class="card passed">
+  <div class="top"><div><div class="name">book added via API is in the UI cart of the same user</div><div class="group">API setup, UI validation</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>A book put in the cart behind the scenes shows up on the website for the same customer. Passes when the cart page shows that book, its price and a cart count of 1.</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">guest cart items do not move into the account on UI login</div><div class="group">API setup, UI validation</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>Logging in does not mix a visitor's cart into the account. Passes when the account's cart stays empty and the visitor's cart is untouched.</div>
+  
+  
+  
+</div><div class="card passed">
+  <div class="top"><div><div class="name">account and guest session do not share cart state</div><div class="group">Session isolation</div></div>
+  <span class="badge passed">Passed</span></div>
+  <div class="label">What we checked</div><div>Two shoppers never see each other's carts. Passes when the account and a separate visitor each see only their own book, on the website and in the shop's records.</div>
+  
+  
+  
+</div></section>
+
+<script>
+  // Show one result group at a time; the choice lives in the URL (#passed / #failed) so it can be shared
+  const buttons = document.querySelectorAll('[data-filter]');
+  const sections = document.querySelectorAll('section[data-status]');
+  function apply() {
+    const wanted = location.hash.slice(1) || 'all';
+    buttons.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.filter === wanted)));
+    sections.forEach(s => { s.hidden = wanted !== 'all' && s.dataset.status !== wanted; });
+  }
+  buttons.forEach(b => b.addEventListener('click', () => {
+    history.replaceState(null, '', b.dataset.filter === 'all' ? location.pathname : '#' + b.dataset.filter);
+    apply();
+  }));
+  window.addEventListener('hashchange', apply);
+  apply();
+</script>
+</main></body></html>
